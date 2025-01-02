@@ -20,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class UsuarioController {
     private final UsuarioService usuarioService;
     private final SecurityService securityService;
