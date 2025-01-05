@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController  @RequestMapping("/api/carros")
-@RequiredArgsConstructor  @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "X-Total-Count")
 public class CarroController {
     private final CarroService carroService;
     private final CsvService csvService;
@@ -39,7 +40,7 @@ public class CarroController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Total-Count", String.valueOf(carroService.count()));
         List<Carro> allCarros = carroService.getAllPaginado(Integer.parseInt(page), Integer.parseInt(size));
-        return ResponseEntity.ok(allCarros);
+        return ResponseEntity.ok().headers(headers).body(allCarros);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Carro> buscarPorId(@PathVariable Long id) {
